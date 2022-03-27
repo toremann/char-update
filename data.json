@@ -1,53 +1,53 @@
 [
-     {
-          "name": "Toremann",
-          "realm": "Stormscale",
-          "rateatm2v2": 1136,
-          "rateatm3v3": 0,
-          "rateatmrbg": 1468,
-          "rerolls": [
-               {
-                    "name": "Torebukk",
-                    "realm": "Stormscale",
-                    "rateatm2v2": 1043,
-                    "rateatm3v3": 937
-               },
-               {
-                    "name": "Toré",
-                    "realm": "Stormscale",
-                    "rateatm2v2": 0,
-                    "rateatm3v3": 0
-               },
-               {
-                    "name": "Torehus",
-                    "realm": "Stormscale",
-                    "rateatm2v2": 0,
-                    "rateatm3v3": 0
-               },
-               {
-                    "name": "Tutoress",
-                    "realm": "Stormscale",
-                    "rateatm2v2": 1255,
-                    "rateatm3v3": 0
-               },
-               {
-                    "name": "Totemtore",
-                    "realm": "Stormscale",
-                    "rateatm2v2": 1679,
-                    "rateatm3v3": 1360
-               },
-               {
-                    "name": "Torekunde",
-                    "realm": "Stormscale",
-                    "rateatm2v2": 0,
-                    "rateatm3v3": 0
-               },
-               {
-                    "name": "Luksustore",
-                    "realm": "Stormscale",
-                    "rateatm2v2": 1035,
-                    "rateatm3v3": 0
-               }
-          ]
-     }
+ {
+  "name": "Toremann",
+  "realm": "Stormscale",
+  "rateatm2v2": 1136,
+  "rateatm3v3": 0,
+  "rateatmrbg": 1468,
+  "rerolls": [
+   {
+    "name": "Torebukk",
+    "realm": "Stormscale",
+    "rateatm2v2": 1043,
+    "rateatm3v3": 937
+   },
+   {
+    "name": "Toré",
+    "realm": "Stormscale",
+    "rateatm2v2": 0,
+    "rateatm3v3": 0
+   },
+   {
+    "name": "Torehus",
+    "realm": "Stormscale",
+    "rateatm2v2": 0,
+    "rateatm3v3": 0
+   },
+   {
+    "name": "Tutoress",
+    "realm": "Stormscale",
+    "rateatm2v2": 1255,
+    "rateatm3v3": 0
+   },
+   {
+    "name": "Totemtore",
+    "realm": "Stormscale",
+    "rateatm2v2": 1679,
+    "rateatm3v3": 1360
+   },
+   {
+    "name": "Torekunde",
+    "realm": "Stormscale",
+    "rateatm2v2": 0,
+    "rateatm3v3": 0
+   },
+   {
+    "name": "Luksustore",
+    "realm": "Stormscale",
+    "rateatm2v2": 1035,
+    "rateatm3v3": 0
+   }
+  ]
+ }
 ]
