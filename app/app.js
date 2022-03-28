@@ -6,27 +6,28 @@ const fs = require("fs");
   const server = "Stormscale";
   const apiURL = "https://check-pvp.fr/api/characters/eu/";
 
-  let dataResponse = [];
-
-  // Alt's data for new axios request
-  let dataResponseAlts = [];
-
-  // Array of urls: https://check-pvp.fr/api/characters/eu/REALM/NAME/battlenet
-  let arrayOfPromisess = [];
-
-  // AXIOS HER?
-
   axios.put(apiURL + server + "/" + player + "/battlenet").then((response) => {
+
+    let dataResponse = [];
+
+    // Alt's data for new axios request
+    let dataResponseAlts = [];
+  
+    // Array of urls: https://check-pvp.fr/api/characters/eu/REALM/NAME/battlenet
+    // Promise.all ["URL1", "URL2", "URL3"]
+    let arrayOfPromisess = [];
+
     dataResponse.push(response.data);
-    dataResponseAlts.push(
-      JSON.stringify(response.data.rerolls, ["name", "realm"])
-    );
+    dataResponseAlts.push(response.data.rerolls)
+
+    console.log("dataresponsealts:", dataResponseAlts);
     // FILL arrayOfPromisess
+    // Generate URL for all alts
     arrayOfPromisess.push(
       apiURL +
-        dataResponseAlts[(0, 1)] +
+        dataResponseAlts +
         "/" +
-        dataResponseAlts[(0, 2)] +
+        dataResponseAlts +
         "/battlenet"
     );
     console.log("array of promisess:", arrayOfPromisess);
@@ -42,8 +43,6 @@ const fs = require("fs");
       ["name", "realm", "rateatm2v2", "rateatm3v3", "rateatmrbg", "rerolls"],
       1
     );
-
-    console.log("dataresponsealts:", dataResponseAlts);
 
     // Write data from respons to data.json
     let test = fs.writeFile("data.json", dataStringfy, function (err) {
