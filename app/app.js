@@ -2,42 +2,36 @@ const axios = require("axios").default;
 const fs = require("fs");
 
 (async () => {
+  // Main player
   const player = "Toremann";
+  // Main player server
   const server = "Stormscale";
+  // API URL for put request
   const apiURL = "https://check-pvp.fr/api/characters/eu/";
 
+  // Axios
   axios.put(apiURL + server + "/" + player + "/battlenet").then((response) => {
-
+    // Data respons from Axios
     let dataResponse = [];
 
-    // Alt's data for new axios request
-    let dataResponseAlts = [];
-  
-    // Array of urls: https://check-pvp.fr/api/characters/eu/REALM/NAME/battlenet
-    // Promise.all ["URL1", "URL2", "URL3"]
+    // Array for Promises URL's
     let arrayOfPromisess = [];
 
+    // Push data from respons to dataRespons array
     dataResponse.push(response.data);
-    dataResponseAlts.push(response.data.rerolls)
 
-    console.log("dataresponsealts:", dataResponseAlts);
-    // FILL arrayOfPromisess
-    // Generate URL for all alts
-    arrayOfPromisess.push(
-      apiURL +
-        dataResponseAlts +
-        "/" +
-        dataResponseAlts +
-        "/battlenet"
-    );
-    console.log("array of promisess:", arrayOfPromisess);
+    // Generate URL's for all alts
+    response.data.rerolls.forEach((character) => {
+      arrayOfPromisess.push(
+        apiURL + character.realm + "/" + character.name + "/battlenet"
+      );
+    });
 
-    // axios.put(apiURL + dataResponseAlts.server + "/" + dataResponseAlts.name + "/battlenet").then((response) => {
-    //   dataReponseAltsRating.push(JSON.stringify(response))
-    // }
-    // )
+    Promise.all(arrayOfPromisess).then((response) => {
+      console.log(response);
+    });
 
-    // Find information I want for main char
+    // Stringify dataRespons and write file to data.json
     let dataStringfy = JSON.stringify(
       dataResponse,
       ["name", "realm", "rateatm2v2", "rateatm3v3", "rateatmrbg", "rerolls"],
