@@ -9,13 +9,17 @@ const fs = require("fs");
   // API URL for put request
   const apiURL = "https://check-pvp.fr/api/characters/eu/";
 
+  // arrow function takes url into axios.put(url)
+  // API returns promise on PUT, API does responds 404 to GET!
+  const fetchURL = (url) => axios.put(url);
+
   // Axios
   axios.put(apiURL + server + "/" + player + "/battlenet").then((response) => {
     // Data respons from Axios
     let dataResponse = [];
 
     // Array for Promises URL's
-    let arrayOfPromisess = [];
+    let arrayOfPromisess = [].map(fetchURL);
 
     // Push data from respons to dataRespons array
     dataResponse.push(response.data);
@@ -27,10 +31,35 @@ const fs = require("fs");
       );
     });
 
-    Promise.all(arrayOfPromisess).then((response) => {
-      console.log(response);
-    });
+    // The map() method creates a new array populated with the results of calling a provided function on every element in the calling array.
+    function putAllData(arrayOfPromisess) {
+      return Promise.all(arrayOfPromisess.map(fetchData));
+    }
+    
+    let pr = [];
 
+    // fetchData = axios.put(URL)
+    function fetchData(URL) {
+      return axios
+        .put(URL)
+        .then(function (promise) {
+          return {
+            success: true,
+            data: promise,
+          };
+        })
+        
+        .catch(function (error) {
+          return { success: false };
+        });
+    }
+    
+    putAllData(arrayOfPromisess)
+      .then((resp) => {
+        console.log(resp)
+      })
+    
+    
     // Stringify dataRespons and write file to data.json
     let dataStringfy = JSON.stringify(
       dataResponse,
