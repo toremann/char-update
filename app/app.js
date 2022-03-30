@@ -35,8 +35,6 @@ const fs = require("fs");
     function putAllData(arrayOfPromisess) {
       return Promise.all(arrayOfPromisess.map(fetchData));
     }
-    
-    let pr = [];
 
     // fetchData = axios.put(URL)
     function fetchData(URL) {
@@ -44,31 +42,39 @@ const fs = require("fs");
         .put(URL)
         .then(function (promise) {
           return {
-            success: true,
-            data: promise,
+            // success: true,
+            player: promise.data.name,
+            realm: promise.data.realm,
+            rating2v2: promise.data.rateatm2v2,
+            rating3v3: promise.data.rateatm3v3,
+            ratingrbg: promise.data.rateatmrbg,
           };
         })
-        
         .catch(function (error) {
           return { success: false };
         });
     }
-    
+
     putAllData(arrayOfPromisess)
       .then((resp) => {
-        console.log(resp)
+        //Array for alts
+        let alts = [];
+        //Push promise response to alts array
+        alts.push(resp);
       })
-    
-    
-    // Stringify dataRespons and write file to data.json
+      .catch((e) => {
+        console.log(e);
+      });
+
+    //Stringify dataRespons and write file to data.json
     let dataStringfy = JSON.stringify(
       dataResponse,
-      ["name", "realm", "rateatm2v2", "rateatm3v3", "rateatmrbg", "rerolls"],
+      ["name", "realm", "rateatm2v2", "rateatm3v3", "rateatmrbg"],
       1
     );
 
     // Write data from respons to data.json
-    let test = fs.writeFile("data.json", dataStringfy, function (err) {
+    fs.writeFile("data.json", dataStringfy, function (err) {
       if (err) {
         console.log(err);
       } else {
