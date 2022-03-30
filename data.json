@@ -1,9 +1,68 @@
 [
- {
-  "name": "Toremann",
-  "realm": "Stormscale",
-  "rateatm2v2": 1136,
-  "rateatm3v3": 0,
-  "rateatmrbg": 1468
- }
+ [
+  {
+   "player": "Toremann",
+   "realm": "Stormscale",
+   "rating2v2": 1136,
+   "rating3v3": 0,
+   "ratingrbg": 1468,
+   "lastupdate": 1648337763
+  },
+  {
+   "player": "Torebukk",
+   "realm": "Stormscale",
+   "rating2v2": 1043,
+   "rating3v3": 937,
+   "ratingrbg": 0,
+   "lastupdate": 1648050419
+  },
+  {
+   "player": "Toré",
+   "realm": "Stormscale",
+   "rating2v2": 0,
+   "rating3v3": 0,
+   "ratingrbg": 0,
+   "lastupdate": 1643578652
+  },
+  {
+   "player": "Torehus",
+   "realm": "Stormscale",
+   "rating2v2": 0,
+   "rating3v3": 0,
+   "ratingrbg": 0,
+   "lastupdate": 1645130624
+  },
+  {
+   "player": "Tutoress",
+   "realm": "Stormscale",
+   "rating2v2": 1255,
+   "rating3v3": 384,
+   "ratingrbg": 767,
+   "lastupdate": 1648410713
+  },
+  {
+   "player": "Totemtore",
+   "realm": "Stormscale",
+   "rating2v2": 1594,
+   "rating3v3": 1360,
+   "ratingrbg": 192,
+   "lastupdate": 1648331886
+  },
+  {
+   "player": "Torekunde",
+   "realm": "Stormscale",
+   "rating2v2": 0,
+   "rating3v3": 0,
+   "ratingrbg": 0,
+   "lastupdate": 1645131686
+  },
+  {
+   "player": "Luksustore",
+   "realm": "Stormscale",
+   "rating2v2": 1035,
+   "rating3v3": 0,
+   "ratingrbg": 1466,
+   "lastupdate": 1648050725
+  }
+ ]
 ]

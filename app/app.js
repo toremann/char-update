@@ -16,13 +16,12 @@ const fs = require("fs");
   // Axios
   axios.put(apiURL + server + "/" + player + "/battlenet").then((response) => {
     // Data respons from Axios
-    let dataResponse = [];
 
-    // Array for Promises URL's
+    // Array for axios Promise.all function, all URLs in this array will be resolved
     let arrayOfPromisess = [].map(fetchURL);
 
-    // Push data from respons to dataRespons array
-    dataResponse.push(response.data);
+    // Array for Promises URL's | push main char into array!
+    arrayOfPromisess.push(apiURL + server + "/" + player + "/battlenet");
 
     // Generate URL's for all alts
     response.data.rerolls.forEach((character) => {
@@ -43,11 +42,12 @@ const fs = require("fs");
         .then(function (promise) {
           return {
             // success: true,
-            player: promise.data.name,
-            realm: promise.data.realm,
-            rating2v2: promise.data.rateatm2v2,
-            rating3v3: promise.data.rateatm3v3,
-            ratingrbg: promise.data.rateatmrbg,
+            player: promise.data.name, // Player name
+            realm: promise.data.realm, // Player server
+            rating2v2: promise.data.rateatm2v2, // Rating 2v2
+            rating3v3: promise.data.rateatm3v3, // Rating 3v3
+            ratingrbg: promise.data.rateatmrbg, // Rating RBG
+            lastupdate: promise.data.lastModified, // Last updated
           };
         })
         .catch(function (error) {
@@ -59,27 +59,28 @@ const fs = require("fs");
       .then((resp) => {
         //Array for alts
         let alts = [];
+
         //Push promise response to alts array
         alts.push(resp);
+        // console.log(alts);
+
+        // Write output to JSON file
+        fs.writeFile(
+          "data.json",
+          // Fix the output
+          JSON.stringify(alts, null, 1),
+
+          function (err) {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log("Wrote to data.json");
+            }
+          }
+        );
       })
       .catch((e) => {
         console.log(e);
       });
-
-    //Stringify dataRespons and write file to data.json
-    let dataStringfy = JSON.stringify(
-      dataResponse,
-      ["name", "realm", "rateatm2v2", "rateatm3v3", "rateatmrbg"],
-      1
-    );
-
-    // Write data from respons to data.json
-    fs.writeFile("data.json", dataStringfy, function (err) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log("Wrote to data.json");
-      }
-    });
   });
 })();
