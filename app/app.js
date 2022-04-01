@@ -57,18 +57,12 @@ const fs = require("fs");
 
     putAllData(arrayOfPromisess)
       .then((resp) => {
-        //Array for alts
-        let alts = [];
-
-        //Push promise response to alts array
-        alts.push(resp);
-        // console.log(alts);
-
+  
         // Write output to JSON file
         fs.writeFile(
           "data.json",
           // Fix the output
-          JSON.stringify(alts, null, 1),
+          JSON.stringify(resp, null, 1),
 
           function (err) {
             if (err) {
