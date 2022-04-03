@@ -60,7 +60,7 @@ const fs = require("fs");
   
         // Write output to JSON file
         fs.writeFile(
-          "data.json",
+          "./frontend/data/data.json",
           // Fix the output
           JSON.stringify(resp, null, 1),
 
