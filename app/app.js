@@ -44,9 +44,16 @@ const fs = require("fs");
             // success: true,
             player: promise.data.name, // Player name
             realm: promise.data.realm, // Player server
+            ilvl: promise.data.realm.pvpGear,
             rating2v2: promise.data.rateatm2v2, // Rating 2v2
+            wins2v2: promise.data.ratioWin2v2,
+            loss2v2: promise.data.ratioLose2v2,
             rating3v3: promise.data.rateatm3v3, // Rating 3v3
+            wins3v3: promise.data.ratioWin3v3,
+            loss3v3: promise.data.ratioLose3v3,
             ratingrbg: promise.data.rateatmrbg, // Rating RBG
+            winsrbg: promise.data.ratioWinRbg,
+            lossrbg: promise.data.ratioLoseRbg,
             lastupdate: promise.data.lastModified, // Last updated
           };
         })
