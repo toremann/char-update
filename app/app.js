@@ -44,7 +44,7 @@ const fs = require("fs");
             // success: true,
             player: promise.data.name, // Player name
             realm: promise.data.realm, // Player server
-            ilvl: promise.data.realm.pvpGear,
+            ilvl: promise.data.pvpGear,
             rating2v2: promise.data.rateatm2v2, // Rating 2v2
             wins2v2: promise.data.ratioWin2v2,
             loss2v2: promise.data.ratioLose2v2,
@@ -67,6 +67,10 @@ const fs = require("fs");
   
         // Write output to JSON file
         fs.writeFile(
+
+          // Uncomment this for correct path on RPI
+          // "/home/pi/char-update/frontend/data/data.json",
+
           "./frontend/data/data.json",
           // Fix the output
           JSON.stringify(resp, null, 1),
