@@ -71,7 +71,7 @@ const fs = require("fs");
           // Uncomment this for correct path on RPI
           // "/home/pi/char-update/frontend/data/data.json",
 
-          "./frontend/data/data.json",
+          "./app/data/data.json",
           // Fix the output
           JSON.stringify(resp, null, 1),
 
