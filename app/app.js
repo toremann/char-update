@@ -1,7 +1,7 @@
 const axios = require("axios").default;
 const fs = require("fs");
 
-(async () => {
+module.exports = (async () => {
   // Main player
   const player = "Toremann";
   // Main player server
@@ -71,7 +71,11 @@ const fs = require("fs");
           // Uncomment this for correct path on RPI
           // "/home/pi/char-update/frontend/data/data.json",
 
-          "./app/data/data.json",
+          // Uncomment for running only app
+          // "./app/data/data.json",
+
+          "./data/data.json",
+
           // Fix the output
           JSON.stringify(resp, null, 1),
 

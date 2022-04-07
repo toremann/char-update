@@ -3,6 +3,8 @@ const morgan = require('morgan');
 const fs = require('fs');
 const path = require('path')
 
+
+
 const app = express();
 app.use(morgan());
 
@@ -23,3 +25,13 @@ app.get('/', (req, res) => {
 app.listen(3000, () => {
     console.log('Server started and listening on port 3000')
 });
+
+
+    function loopIt(){
+        require('./app')
+        console.log('Waiting..')
+        setTimeout(loopIt, 20000);
+    }
+    console.log('Scraping..')
+    loopIt();
+
