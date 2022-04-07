@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node app/app.js",
-    "format": "prettier --write \"**/*.{js,jsx,md}\""
+    "format": "prettier --write \"**/*.{js,jsx,md}\"",
+    "server": "node app/server.js"
   },
   "keywords": [],
   "author": "",

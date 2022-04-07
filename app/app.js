@@ -64,17 +64,15 @@ module.exports = (async () => {
 
     putAllData(arrayOfPromisess)
       .then((resp) => {
-  
         // Write output to JSON file
         fs.writeFile(
-
           // Uncomment this for correct path on RPI
           // "/home/pi/char-update/frontend/data/data.json",
 
           // Uncomment for running only app
           // "./app/data/data.json",
 
-          "./data/data.json",
+          "./app/data/data.json",
 
           // Fix the output
           JSON.stringify(resp, null, 1),
