@@ -1,8 +1,9 @@
 const express = require("express");
 const morgan = require("morgan");
 const fs = require("fs");
-const path = require("path");
 
+const path = require("path");
+const scrape = require("./app.js")
 const app = express();
 app.use(morgan());
 
@@ -25,7 +26,7 @@ app.listen(3000, () => {
 });
 
 function loopIt() {
-  require("./app");
+  scrape
   console.log("Waiting..");
   setTimeout(loopIt, 20000);
 }
