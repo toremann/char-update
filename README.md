@@ -12,6 +12,10 @@ Telegraf data with JSON, queries in GJSON.
 
 Telegraf data to influxDB2 Cloud (Can be hosted on AWS, Google Cloud or Azure)
 
+
+
+![alt text](https://github.com/toremann/char-update/blob/dev/influxdb_rating_dash.png "InfluxDB dash")
+
 # Configs:
 
 # Telegraf.conf example:
