@@ -2,17 +2,17 @@
  {
   "player": "Toremann",
   "realm": "Stormscale",
-  "ilvl": 259,
-  "rating2v2": 1571,
-  "wins2v2": 42,
-  "loss2v2": 36,
-  "rating3v3": 1400,
-  "wins3v3": 20,
-  "loss3v3": 11,
+  "ilvl": 260,
+  "rating2v2": 1541,
+  "wins2v2": 56,
+  "loss2v2": 46,
+  "rating3v3": 1536,
+  "wins3v3": 36,
+  "loss3v3": 23,
   "ratingrbg": 1468,
   "winsrbg": 18,
   "lossrbg": 18,
-  "lastupdate": 1649364069
+  "lastupdate": 1649575563
  },
  {
   "player": "Torebukk",
@@ -63,16 +63,16 @@
   "player": "Tutoress",
   "realm": "Stormscale",
   "ilvl": 259,
-  "rating2v2": 1433,
-  "wins2v2": 23,
-  "loss2v2": 15,
-  "rating3v3": 1102,
-  "wins3v3": 12,
-  "loss3v3": 6,
+  "rating2v2": 1450,
+  "wins2v2": 28,
+  "loss2v2": 22,
+  "rating3v3": 1217,
+  "wins3v3": 14,
+  "loss3v3": 9,
   "ratingrbg": 767,
   "winsrbg": 4,
   "lossrbg": 2,
-  "lastupdate": 1649279049
+  "lastupdate": 1649540191
  },
  {
   "player": "Totemtore",
@@ -81,13 +81,13 @@
   "rating2v2": 1594,
   "wins2v2": 47,
   "loss2v2": 41,
-  "rating3v3": 1360,
-  "wins3v3": 18,
-  "loss3v3": 18,
+  "rating3v3": 1369,
+  "wins3v3": 23,
+  "loss3v3": 23,
   "ratingrbg": 192,
   "winsrbg": 1,
   "lossrbg": 1,
-  "lastupdate": 1649087388
+  "lastupdate": 1649576268
  },
  {
   "player": "Torekunde",
@@ -107,7 +107,7 @@
  {
   "player": "Luksustore",
   "realm": "Stormscale",
-  "ilvl": 253,
+  "ilvl": 254,
   "rating2v2": 1035,
   "wins2v2": 11,
   "loss2v2": 17,
@@ -117,6 +117,6 @@
   "ratingrbg": 1466,
   "winsrbg": 15,
   "lossrbg": 15,
-  "lastupdate": 1648050725
+  "lastupdate": 1649530902
  }
 ]

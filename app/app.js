@@ -1,7 +1,7 @@
 const axios = require("axios").default;
 const fs = require("fs");
 
-module.exports.scrape = (async () => {
+async function scrape() {
   // Main player
   const player = "Toremann";
   // Main player server
@@ -81,7 +81,7 @@ module.exports.scrape = (async () => {
             if (err) {
               console.log(err);
             } else {
-              console.log("Wrote to data.json");
+              console.log("Wrote to data.json", "|| Scraped:", arrayOfPromisess.length, "players");
             }
           }
         );
@@ -90,4 +90,6 @@ module.exports.scrape = (async () => {
         console.log(e);
       });
   });
-})();
+}
+
+module.exports.scrape = scrape;
