@@ -64,6 +64,11 @@ async function scrape() {
 
     putAllData(arrayOfPromisess)
       .then((resp) => {
+        // Make a copy of old file
+        fs.rename('./app/data/data.json', './app/data/data_old.json', function (err) {
+          if (err) throw err;
+          console.log('Renamed file.')
+        })
         // Write output to JSON file
         fs.writeFile(
           // Uncomment this for correct path on RPI
@@ -81,7 +86,12 @@ async function scrape() {
             if (err) {
               console.log(err);
             } else {
-              console.log("Wrote to data.json", "|| Scraped:", arrayOfPromisess.length, "players");
+              console.log(
+                "Wrote to data.json",
+                "|| Scraped:",
+                arrayOfPromisess.length,
+                "players"
+              );
             }
           }
         );

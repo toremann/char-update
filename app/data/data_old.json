@@ -2,20 +2,22 @@
  {
   "player": "Toremann",
   "realm": "Stormscale",
-  "rating2v2": 1519,
-  "wins2v2": 20,
-  "loss2v2": 11,
-  "rating3v3": 763,
-  "wins3v3": 8,
-  "loss3v3": 4,
+  "ilvl": 260,
+  "rating2v2": 1541,
+  "wins2v2": 56,
+  "loss2v2": 46,
+  "rating3v3": 1536,
+  "wins3v3": 36,
+  "loss3v3": 23,
   "ratingrbg": 1468,
   "winsrbg": 18,
   "lossrbg": 18,
-  "lastupdate": 1648980245
+  "lastupdate": 1649575563
  },
  {
   "player": "Torebukk",
   "realm": "Stormscale",
+  "ilvl": 256,
   "rating2v2": 1043,
   "wins2v2": 11,
   "loss2v2": 9,
@@ -25,11 +27,12 @@
   "ratingrbg": 0,
   "winsrbg": 0,
   "lossrbg": 0,
-  "lastupdate": 1648050419
+  "lastupdate": 1649094909
  },
  {
   "player": "Toré",
   "realm": "Stormscale",
+  "ilvl": 250,
   "rating2v2": 0,
   "wins2v2": 0,
   "loss2v2": 0,
@@ -44,6 +47,7 @@
  {
   "player": "Torehus",
   "realm": "Stormscale",
+  "ilvl": 225,
   "rating2v2": 0,
   "wins2v2": 0,
   "loss2v2": 0,
@@ -58,34 +62,37 @@
  {
   "player": "Tutoress",
   "realm": "Stormscale",
-  "rating2v2": 1255,
-  "wins2v2": 14,
-  "loss2v2": 12,
-  "rating3v3": 384,
-  "wins3v3": 4,
-  "loss3v3": 2,
+  "ilvl": 259,
+  "rating2v2": 1450,
+  "wins2v2": 28,
+  "loss2v2": 22,
+  "rating3v3": 1217,
+  "wins3v3": 14,
+  "loss3v3": 9,
   "ratingrbg": 767,
   "winsrbg": 4,
   "lossrbg": 2,
-  "lastupdate": 1648976879
+  "lastupdate": 1649540191
  },
  {
   "player": "Totemtore",
   "realm": "Stormscale",
+  "ilvl": 260,
   "rating2v2": 1594,
   "wins2v2": 47,
   "loss2v2": 41,
-  "rating3v3": 1360,
-  "wins3v3": 18,
-  "loss3v3": 18,
+  "rating3v3": 1369,
+  "wins3v3": 23,
+  "loss3v3": 23,
   "ratingrbg": 192,
   "winsrbg": 1,
   "lossrbg": 1,
-  "lastupdate": 1648331886
+  "lastupdate": 1649576268
  },
  {
   "player": "Torekunde",
   "realm": "Stormscale",
+  "ilvl": 0,
   "rating2v2": 0,
   "wins2v2": 0,
   "loss2v2": 0,
@@ -100,6 +107,7 @@
  {
   "player": "Luksustore",
   "realm": "Stormscale",
+  "ilvl": 254,
   "rating2v2": 1035,
   "wins2v2": 11,
   "loss2v2": 17,
@@ -109,6 +117,6 @@
   "ratingrbg": 1466,
   "winsrbg": 15,
   "lossrbg": 15,
-  "lastupdate": 1648050725
+  "lastupdate": 1649530902
  }
 ]

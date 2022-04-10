@@ -3,7 +3,7 @@ const morgan = require("morgan");
 const fs = require("fs");
 
 const path = require("path");
-const { scrape } = require("./app.js")
+const { scrape } = require("./app.js");
 const app = express();
 app.use(morgan());
 
@@ -31,9 +31,9 @@ function msToTime(duration) {
     minutes = Math.floor((duration / (1000 * 60)) % 60),
     hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
 
-  hours = (hours < 10) ? "0" + hours : hours;
-  minutes = (minutes < 10) ? "0" + minutes : minutes;
-  seconds = (seconds < 10) ? "0" + seconds : seconds;
+  hours = hours < 10 ? "0" + hours : hours;
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+  seconds = seconds < 10 ? "0" + seconds : seconds;
 
   return hours + ":" + minutes + ":" + seconds;
 }
@@ -41,8 +41,8 @@ function msToTime(duration) {
 const timer = 20000;
 
 function loopIt() {
-  scrape()
-  console.log("Waiting..", (msToTime(timer)));
+  scrape();
+  console.log("Waiting..", msToTime(timer));
   setTimeout(loopIt, timer);
 }
 console.log("Scraping..");
