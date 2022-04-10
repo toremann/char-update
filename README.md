@@ -15,7 +15,7 @@ Telegraf data to influxDB2 Cloud (Can be hosted on AWS, Google Cloud or Azure)
 # Configs:
 
 # Telegraf.conf example:
-
+`
 [[inputs.http]]
 urls = [
 "http://192.168.8.109/data.json"
@@ -29,16 +29,19 @@ tagexclude = ["url", "host", "lastupdate"]
             path = "@this"
             tags = ["player"]
             disable_prepend_keys = false
+`
 
 # Crontab example:
 
 I.e. https://crontab.guru/ can be used to set correct schedule
 
+`
 #AT EVERY HOURE
 1 \* \* \* \* cd /home/pi/char-update/app/ && /usr/local/bin/node app.js 2>&1 >> /home/pi/logs/char-update.log
+`
 
 # Flux query for win percentage
-
+`
 from(bucket: "telegraf")
 |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
 |> filter(fn: (r) => r["_measurement"] == "test8")
@@ -46,3 +49,4 @@ from(bucket: "telegraf")
 |> filter(fn: (r) => r["player"] == "Toremann")
 |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "\_value")
 |> map(fn: (r) => ({r with \_value: r.wins2v2 / (r.loss2v2 + r.wins2v2) \* 100.0}))
+`
