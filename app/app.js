@@ -65,14 +65,24 @@ async function scrape() {
     putAllData(arrayOfPromisess)
       .then((resp) => {
         // Make a copy of old file
-        fs.rename('./app/data/data.json', './app/data/data_old.json', function (err) {
+
+        // DEV ENV
+
+        fs.rename("./app/data/data.json", "./app/data/data_old.json", function (err) {
           if (err) throw err;
-          console.log('Renamed file.')
-        })
+          console.log("Renamed file.");
+        });
+
+        // RPI:
+        // fs.rename("./data/data.json", "./data/data_old.json", function (err) {
+        //   if (err) throw err;
+        //   console.log("Renamed file.");
+        // });
+
         // Write output to JSON file
         fs.writeFile(
           // Uncomment this for correct path on RPI
-          // "/home/pi/char-update/frontend/data/data.json",
+          // "./data/data.json",
 
           // Uncomment for running only app
           // "./app/data/data.json",
