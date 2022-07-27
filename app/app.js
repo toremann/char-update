@@ -1,7 +1,5 @@
 const axios = require("axios").default;
-const fs = require("fs");
-const path = require("path");
-const Push = require("../db/config/models/pushData");
+const Player = require("../db/config/models/pushData");
 const connectDB = require("../db/config/db");
 
 // Connect to mongoDB
@@ -17,10 +15,7 @@ async function scrape() {
 
   const fetchURL = (url) => axios.put(url);
 
-  // Axios
   axios.put(apiURL + server + "/" + player + "/battlenet").then((response) => {
-    // Data respons from Axios
-
     // Array for axios Promise.all function, arrays of URL's to be resolved.
     let arrayOfPromisess = [].map(fetchURL);
 
@@ -68,36 +63,11 @@ async function scrape() {
 
     putAllData(arrayOfPromisess)
       .then((resp) => {
-        // Make a copy of old file
-
-        fs.rename(
-          path.join(__dirname, "./data/data.json"),
-          path.join(__dirname, "./data/data_old.json"),
-          function (err) {
-            if (err) throw err;
-            console.log("Renamed file data.json to data_old.json");
-          }
-        );
-
-        // Write output to JSON file
-        fs.writeFile(
-          path.join(__dirname, "./data/data.json"),
-
-          JSON.stringify(resp, null, 1),
-
-          function (err) {
-            if (err) {
-              console.log(err);
-            } else {
-              console.log(
-                "Wrote to data.json",
-                "|| Scraped:",
-                arrayOfPromisess.length,
-                "players"
-              );
-            }
-          }
-        );
+        // Push data to mongo DB
+        Player.create(resp, function (err) {
+          if (err) return console.log("Database error!");
+          console.log("Wrote data to DB!");
+        });
       })
       .catch((e) => {
         console.log(e);

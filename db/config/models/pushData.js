@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 // TODO:
 // Push player data to mongodb
 
-const pushSchema = mongoose.Schema(
+const playerSchema = mongoose.Schema(
   {
     player: String, //promise.data.name, // Player name
     realm: String, // promise.data.realm, // Player server
@@ -24,4 +24,4 @@ const pushSchema = mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Push", pushSchema);
+module.exports = mongoose.model("Player", playerSchema);

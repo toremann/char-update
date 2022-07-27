@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node ./app/server",
     "format": "prettier --write \"**/*.{js,jsx,md}\"",
-    "server": "node app/server.js"
+    "server": "node app/server.js",
+    "dev": "nodemon app/server.js"
   },
   "keywords": [],
   "author": "",
@@ -18,10 +19,7 @@
     "axios": "^0.26.1",
     "dotenv": "^16.0.1",
     "express": "^4.17.3",
-    "express-async-handler": "^1.2.0",
     "ip": "^1.1.5",
-    "json-diff": "^0.7.3",
-    "mongoose": "^6.5.0",
-    "morgan": "^1.10.0"
+    "mongoose": "^6.5.0"
   }
 }
