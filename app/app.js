@@ -1,5 +1,11 @@
 const axios = require("axios").default;
 const fs = require("fs");
+const path = require("path");
+const Push = require("../db/config/models/pushData");
+const connectDB = require("../db/config/db");
+
+// Connect to mongoDB
+connectDB();
 
 async function scrape() {
   // Main player
@@ -9,15 +15,13 @@ async function scrape() {
   // API URL for put request
   const apiURL = "https://check-pvp.fr/api/characters/eu/";
 
-  // arrow function takes url into axios.put(url)
-  // API returns promise on PUT, API does responds 404 to GET!
   const fetchURL = (url) => axios.put(url);
 
   // Axios
   axios.put(apiURL + server + "/" + player + "/battlenet").then((response) => {
     // Data respons from Axios
 
-    // Array for axios Promise.all function, all URLs in this array will be resolved
+    // Array for axios Promise.all function, arrays of URL's to be resolved.
     let arrayOfPromisess = [].map(fetchURL);
 
     // Array for Promises URL's | push main char into array!
@@ -44,17 +48,17 @@ async function scrape() {
             // success: true,
             player: promise.data.name, // Player name
             realm: promise.data.realm, // Player server
-            ilvl: promise.data.pvpGear,
+            ilvl: promise.data.pvpGear, // Player PVP ilvl
             rating2v2: promise.data.rateatm2v2, // Rating 2v2
-            wins2v2: promise.data.ratioWin2v2,
-            loss2v2: promise.data.ratioLose2v2,
+            wins2v2: promise.data.ratioWin2v2, // Wins
+            loss2v2: promise.data.ratioLose2v2, // Loss
             rating3v3: promise.data.rateatm3v3, // Rating 3v3
-            wins3v3: promise.data.ratioWin3v3,
-            loss3v3: promise.data.ratioLose3v3,
+            wins3v3: promise.data.ratioWin3v3, // Wins
+            loss3v3: promise.data.ratioLose3v3, // Loss
             ratingrbg: promise.data.rateatmrbg, // Rating RBG
-            winsrbg: promise.data.ratioWinRbg,
-            lossrbg: promise.data.ratioLoseRbg,
-            lastupdate: promise.data.lastModified, // Last updated
+            winsrbg: promise.data.ratioWinRbg, // Wins
+            lossrbg: promise.data.ratioLoseRbg, // Loss
+            lastupdate: promise.data.lastModified, // Last updated date
           };
         })
         .catch(function (error) {
@@ -66,30 +70,19 @@ async function scrape() {
       .then((resp) => {
         // Make a copy of old file
 
-        // DEV ENV
-
-        fs.rename("./app/data/data.json", "./app/data/data_old.json", function (err) {
-          if (err) throw err;
-          console.log("Renamed file.");
-        });
-
-        // RPI:
-        // fs.rename("./data/data.json", "./data/data_old.json", function (err) {
-        //   if (err) throw err;
-        //   console.log("Renamed file.");
-        // });
+        fs.rename(
+          path.join(__dirname, "./data/data.json"),
+          path.join(__dirname, "./data/data_old.json"),
+          function (err) {
+            if (err) throw err;
+            console.log("Renamed file data.json to data_old.json");
+          }
+        );
 
         // Write output to JSON file
         fs.writeFile(
-          // Uncomment this for correct path on RPI
-          // "./data/data.json",
+          path.join(__dirname, "./data/data.json"),
 
-          // Uncomment for running only app
-          // "./app/data/data.json",
-
-          "./app/data/data.json",
-
-          // Fix the output
           JSON.stringify(resp, null, 1),
 
           function (err) {
