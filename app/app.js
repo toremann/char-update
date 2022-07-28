@@ -22,7 +22,7 @@ async function scrape() {
     // Array for Promises URL's | push main char into array!
     arrayOfPromisess.push(apiURL + server + "/" + player + "/battlenet");
 
-    // Generate URL's for all alts
+    // LOOP: Generate URL's for all characters belonging to player + server
     response.data.rerolls.forEach((character) => {
       arrayOfPromisess.push(
         apiURL + character.realm + "/" + character.name + "/battlenet"
@@ -35,12 +35,11 @@ async function scrape() {
     }
 
     // fetchData = axios.put(URL)
-    function fetchData(URL) {
+    async function fetchData(URL) {
       return axios
         .put(URL)
         .then(function (promise) {
           return {
-            // success: true,
             player: promise.data.name, // Player name
             realm: promise.data.realm, // Player server
             ilvl: promise.data.pvpGear, // Player PVP ilvl
@@ -57,16 +56,58 @@ async function scrape() {
           };
         })
         .catch(function (error) {
-          return { success: false };
+          return console.log(error);
         });
     }
 
     putAllData(arrayOfPromisess)
       .then((resp) => {
-        // Push data to mongo DB
-        Player.create(resp, function (err) {
-          if (err) return console.log("Database error!");
-          console.log("Wrote data to DB!");
+        const respArray = resp;
+
+        // const filter = { player: resp.player };
+
+        // const update = {
+        //   rating2v2: resp.rating2v2,
+        //   wins2v2: resp.ratioWin2v2,
+        //   loss2v2: resp.ratioLose2v2,
+        //   rating3v3: resp.rateatm3v3,
+        //   wins3v3: resp.ratioWin3v3,
+        //   loss3v3: resp.ratioLose3v3,
+        //   ratingrbg: resp.rateatmrbg,
+        //   winsrbg: resp.ratioWinRbg,
+        //   lossrbg: resp.ratioLoseRbg,
+        //   lastupdate: resp.lastModified,
+        // };
+
+        respArray.forEach((player) => {
+          // from response check if player exists in DB
+          if (Player.exists({ player })) {
+            // if player exists Player.findOneAndUpdate
+
+            // Player.findOneAndUpdate(
+            //   filter,
+            //   update,
+            //   { new: true },
+            //   function (error, result) {
+            //     if (error) {
+            //       console.log("findupdate_error:", error);
+            //     } else {
+            //       console.log("findupdate_result:", result);
+            //     }
+            //   }
+            // );
+
+            console.log("exists", player.player);
+          } else {
+            // Push data to mongo DB
+            // Player.create(resp[0], function (err) {
+            //   if (err) return console.log("Database error!");
+            //   console.log("Wrote data to DB!");
+            // });
+
+            // does not exist Player.Create
+            console.log("does not exists", player.player);
+          }
         });
       })
       .catch((e) => {
