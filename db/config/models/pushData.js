@@ -4,6 +4,7 @@ const playerSchema = mongoose.Schema(
   {
     player: String,
     realm: String,
+    class: Number,
     ilvl: Number,
     rating2v2: Number,
     wins2v2: Number,
