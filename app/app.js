@@ -5,18 +5,19 @@ const connectDB = require("../db/config/db");
 // Connect to mongoDB
 connectDB();
 
-async function scrape() {
-  // Main player
-  const player = "Toremann";
-  // Main player server
-  const server = "Stormscale";
-  // API URL for put request
-  const apiURL = "https://check-pvp.fr/api/characters/eu/";
+// Main player
+const player = "Toremann";
+// Main player server
+const server = "Stormscale";
+// API URL for put request
+const apiURL = "https://check-pvp.fr/api/characters/eu/";
 
+async function scrape() {
   const fetchURL = (url) => axios.put(url);
 
   axios.put(apiURL + server + "/" + player + "/battlenet").then((response) => {
     // Array for axios Promise.all function, arrays of URL's to be resolved.
+    console.log("axios req to main url");
     let arrayOfPromisess = [].map(fetchURL);
 
     // Array for Promises URL's | push main char into array!
@@ -24,14 +25,19 @@ async function scrape() {
 
     // LOOP: Generate URL's for all characters belonging to player + server
     response.data.rerolls.forEach((character) => {
+      console.log("found alt:", character.name);
       arrayOfPromisess.push(
         apiURL + character.realm + "/" + character.name + "/battlenet"
       );
     });
+    console.log("push loop complete");
 
     // The map() method creates a new array populated with the results of calling a provided function on every element in the calling array.
     function putAllData(arrayOfPromisess) {
-      return Promise.all(arrayOfPromisess.map(fetchData));
+      return Promise.all(
+        arrayOfPromisess.map(fetchData),
+        console.log("getting data for alts")
+      );
     }
 
     // fetchData = axios.put(URL)
@@ -62,52 +68,35 @@ async function scrape() {
 
     putAllData(arrayOfPromisess)
       .then((resp) => {
-        const respArray = resp;
+        resp.forEach((respPlayer) => {
+          let update = {
+            player: respPlayer.player,
+            realm: respPlayer.realm,
+            ilvl: respPlayer.ilvl,
+            rating2v2: respPlayer.rating2v2,
+            wins2v2: respPlayer.wins2v2,
+            loss2v2: respPlayer.loss2v2,
+            rating3v3: respPlayer.rating3v3,
+            wins3v3: respPlayer.wins3v3,
+            loss3v3: respPlayer.loss3v3,
+            ratingrbg: respPlayer.ratingrbg,
+            winsrbg: respPlayer.winsrbg,
+            lossrbg: respPlayer.lossrbg,
+            lastupdate: respPlayer.lastupdate,
+          };
 
-        // const filter = { player: resp.player };
-
-        // const update = {
-        //   rating2v2: resp.rating2v2,
-        //   wins2v2: resp.ratioWin2v2,
-        //   loss2v2: resp.ratioLose2v2,
-        //   rating3v3: resp.rateatm3v3,
-        //   wins3v3: resp.ratioWin3v3,
-        //   loss3v3: resp.ratioLose3v3,
-        //   ratingrbg: resp.rateatmrbg,
-        //   winsrbg: resp.ratioWinRbg,
-        //   lossrbg: resp.ratioLoseRbg,
-        //   lastupdate: resp.lastModified,
-        // };
-
-        respArray.forEach((player) => {
-          // from response check if player exists in DB
-          if (Player.exists({ player })) {
-            // if player exists Player.findOneAndUpdate
-
-            // Player.findOneAndUpdate(
-            //   filter,
-            //   update,
-            //   { new: true },
-            //   function (error, result) {
-            //     if (error) {
-            //       console.log("findupdate_error:", error);
-            //     } else {
-            //       console.log("findupdate_result:", result);
-            //     }
-            //   }
-            // );
-
-            console.log("exists", player.player);
-          } else {
-            // Push data to mongo DB
-            // Player.create(resp[0], function (err) {
-            //   if (err) return console.log("Database error!");
-            //   console.log("Wrote data to DB!");
-            // });
-
-            // does not exist Player.Create
-            console.log("does not exists", player.player);
-          }
+          Player.findOneAndUpdate(
+            { player: respPlayer.player },
+            update,
+            { upsert: true, new: true },
+            function (error, result) {
+              if (error) {
+                console.log(error);
+              } else {
+                console.log(result);
+              }
+            }
+          );
         });
       })
       .catch((e) => {
