@@ -1,3 +1,4 @@
+require("dotenv").config();
 const axios = require("axios").default;
 const Player = require("../db/config/models/pushData");
 const connectDB = require("../db/config/db");
