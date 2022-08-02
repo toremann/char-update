@@ -22,3 +22,35 @@ const playerSchema = mongoose.Schema(
 );
 
 module.exports = mongoose.model("Player", playerSchema);
+
+// Todo; create schema for rating's
+
+// {
+//   player: String,
+//   realm: String,
+//   class: Number,
+//   ilvl: Number,
+//   rating2v2: [
+//     {
+//       date:
+//       rating:
+//     }
+//   ]
+//   wins2v2: Number,
+//   loss2v2: Number,
+//   rating3v3: [
+//     {
+//       date:
+//       rating:
+//     },
+//     {
+//       date:
+//       rating:
+//     },
+//   ]
+//   wins3v3: Number,
+//   loss3v3: Number,
+//   ratingrbg: Number,
+//   winsrbg: Number,
+//   lossrbg: Number,
+// },

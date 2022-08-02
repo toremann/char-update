@@ -18,7 +18,6 @@ async function scrape() {
 
   axios.put(apiURL + server + "/" + player + "/battlenet").then((response) => {
     // Array for axios Promise.all function, arrays of URL's to be resolved.
-    console.log("axios req to main url");
     let arrayOfPromisess = [].map(fetchURL);
 
     // Array for Promises URL's | push main char into array!
@@ -26,18 +25,17 @@ async function scrape() {
 
     // LOOP: Generate URL's for all characters belonging to player + server
     response.data.rerolls.forEach((character) => {
-      console.log("found alt:", character.name);
+      console.log("Found alt:", character.name);
       arrayOfPromisess.push(
         apiURL + character.realm + "/" + character.name + "/battlenet"
       );
     });
-    console.log("push loop complete");
 
     // The map() method creates a new array populated with the results of calling a provided function on every element in the calling array.
     function putAllData(arrayOfPromisess) {
       return Promise.all(
         arrayOfPromisess.map(fetchData),
-        console.log("getting data for alts")
+        console.log("Getting data...")
       );
     }
 
@@ -96,7 +94,7 @@ async function scrape() {
               if (error) {
                 console.log(error);
               } else {
-                console.log(result);
+                console.log("Saved", respPlayer.player, "to db");
               }
             }
           );
