@@ -1,15 +1,22 @@
 # char-update
 
-Run update on ur characters on check-pvp.fr
+Track and upload PVP ratings for all your characters to mongoDB
 
-to run script npm start
+# requirements
 
-JSON output in frontend/data
+mongodb
+server to run node app
 
-Use nginx to serve data to http endpoint
+# howto
 
-Telegraf data with JSON, queries in GJSON.
+add .env file with mongodb uri in project folder
 
-Telegraf data to influxDB2 Cloud
+example:
 
+`MONGO_URI=mongodb+srv://username:password@some.url.mongodb.net/?retryWrites=true&w=majority`
 
+update variables in app.js
+
+`const player = "Playername"`
+`const server = "Server"`
+`const apiURL = "https://check-pvp.fr/api/characters/eu/"`

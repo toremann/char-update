@@ -1,30 +1,31 @@
+require("dotenv").config();
 const axios = require("axios").default;
-const fs = require("fs");
+const Player = require("../db/config/models/pushData");
+const connectDB = require("../db/config/db");
 
-(async () => {
-  // Main player
-  const player = "Toremann";
-  // Main player server
-  const server = "Stormscale";
-  // API URL for put request
-  const apiURL = "https://check-pvp.fr/api/characters/eu/";
+// Connect to mongoDB
+connectDB();
 
-  // arrow function takes url into axios.put(url)
-  // API returns promise on PUT, API does responds 404 to GET!
+// Main player
+const player = process.env.PLAYERNAME || "Toremann";
+// Main player server
+const server = process.env.SERVER || "Stormscale";
+// API URL for put request
+const apiURL = process.env.API || "https://check-pvp.fr/api/characters/eu/";
+
+async function scrape() {
   const fetchURL = (url) => axios.put(url);
 
-  // Axios
   axios.put(apiURL + server + "/" + player + "/battlenet").then((response) => {
-    // Data respons from Axios
-
-    // Array for axios Promise.all function, all URLs in this array will be resolved
+    // Array for axios Promise.all function, arrays of URL's to be resolved.
     let arrayOfPromisess = [].map(fetchURL);
 
     // Array for Promises URL's | push main char into array!
     arrayOfPromisess.push(apiURL + server + "/" + player + "/battlenet");
 
-    // Generate URL's for all alts
+    // LOOP: Generate URL's for all characters belonging to player + server
     response.data.rerolls.forEach((character) => {
+      console.log("Found alt:", character.name);
       arrayOfPromisess.push(
         apiURL + character.realm + "/" + character.name + "/battlenet"
       );
@@ -32,49 +33,77 @@ const fs = require("fs");
 
     // The map() method creates a new array populated with the results of calling a provided function on every element in the calling array.
     function putAllData(arrayOfPromisess) {
-      return Promise.all(arrayOfPromisess.map(fetchData));
+      return Promise.all(
+        arrayOfPromisess.map(fetchData),
+        console.log("Getting data...")
+      );
     }
 
     // fetchData = axios.put(URL)
-    function fetchData(URL) {
+    async function fetchData(URL) {
       return axios
         .put(URL)
         .then(function (promise) {
           return {
-            // success: true,
-            player: promise.data.name, // Player name
-            realm: promise.data.realm, // Player server
-            rating2v2: promise.data.rateatm2v2, // Rating 2v2
-            rating3v3: promise.data.rateatm3v3, // Rating 3v3
-            ratingrbg: promise.data.rateatmrbg, // Rating RBG
-            lastupdate: promise.data.lastModified, // Last updated
+            player: promise.data.name,
+            realm: promise.data.realm,
+            class: promise.data.class,
+            ilvl: promise.data.pvpGear,
+            rating2v2: promise.data.rateatm2v2,
+            wins2v2: promise.data.ratioWin2v2,
+            loss2v2: promise.data.ratioLose2v2,
+            rating3v3: promise.data.rateatm3v3,
+            wins3v3: promise.data.ratioWin3v3,
+            loss3v3: promise.data.ratioLose3v3,
+            ratingrbg: promise.data.rateatmrbg,
+            winsrbg: promise.data.ratioWinRbg,
+            lossrbg: promise.data.ratioLoseRbg,
+            lastupdate: promise.data.lastModified,
           };
         })
         .catch(function (error) {
-          return { success: false };
+          return console.log(error);
         });
     }
 
     putAllData(arrayOfPromisess)
       .then((resp) => {
-  
-        // Write output to JSON file
-        fs.writeFile(
-          "./frontend/data/data.json",
-          // Fix the output
-          JSON.stringify(resp, null, 1),
+        resp.forEach((respPlayer) => {
+          let update = {
+            player: respPlayer.player,
+            realm: respPlayer.realm,
+            class: respPlayer.class,
+            ilvl: respPlayer.ilvl,
+            rating2v2: respPlayer.rating2v2,
+            wins2v2: respPlayer.wins2v2,
+            loss2v2: respPlayer.loss2v2,
+            rating3v3: respPlayer.rating3v3,
+            wins3v3: respPlayer.wins3v3,
+            loss3v3: respPlayer.loss3v3,
+            ratingrbg: respPlayer.ratingrbg,
+            winsrbg: respPlayer.winsrbg,
+            lossrbg: respPlayer.lossrbg,
+            lastupdate: respPlayer.lastupdate,
+          };
 
-          function (err) {
-            if (err) {
-              console.log(err);
-            } else {
-              console.log("Wrote to data.json");
+          Player.findOneAndUpdate(
+            { player: respPlayer.player },
+            update,
+            { upsert: true, new: true },
+            function (error, result) {
+              if (error) {
+                console.log(error);
+              } else {
+                console.log("Saved", respPlayer.player, "to db");
+              }
             }
-          }
-        );
+          );
+        });
       })
       .catch((e) => {
         console.log(e);
       });
   });
-})();
+}
+
+module.exports.scrape = scrape;

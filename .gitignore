@@ -1,3 +1,6 @@
 /node_modules
 telegraf.conf
 GJSON
+.env
+app/data/data.json
+app/data/data_old.json

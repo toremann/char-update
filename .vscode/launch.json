@@ -2,12 +2,19 @@
     "configurations": [
         {
             "name": "Launch Program",
-            "program": "${workspaceFolder}/app/app.js",
+            "program": "${workspaceFolder}/app/server.js",
             "request": "launch",
             "skipFiles": [
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
+        },
+        {
+            "name": "Docker Node.js Launch",
+            "type": "docker",
+            "request": "launch",
+            "preLaunchTask": "docker-run: debug",
+            "platform": "node"
         }
     ]
 }
