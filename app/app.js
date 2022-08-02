@@ -13,7 +13,7 @@ const server = process.env.SERVER || "Stormscale";
 // API URL for put request
 const apiURL = process.env.API || "https://check-pvp.fr/api/characters/eu/";
 
-async function scrape() {
+async function update() {
   const fetchURL = (url) => axios.put(url);
 
   axios.put(apiURL + server + "/" + player + "/battlenet").then((response) => {
@@ -106,4 +106,4 @@ async function scrape() {
   });
 }
 
-module.exports.scrape = scrape;
+module.exports.update = update;

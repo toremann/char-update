@@ -1,11 +1,10 @@
-const { scrape } = require("./app.js");
+const { update } = require("./app.js");
 
-const timer = 10000;
+const express = require("express");
+const app = express();
 
-function loopIt() {
-  scrape();
-  console.log("Waiting..", timer);
-  setTimeout(loopIt, timer);
-}
-console.log("Scraping..");
-loopIt();
+app.get("/update", (req, res) => {
+  update();
+});
+
+app.listen(3000);
