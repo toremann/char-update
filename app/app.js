@@ -74,23 +74,14 @@ async function update() {
             realm: respPlayer.realm,
             class: respPlayer.class,
             ilvl: respPlayer.ilvl,
-            rating2v2: {rating2v2: respPlayer.rating2v2 },
             wins2v2: respPlayer.wins2v2,
             loss2v2: respPlayer.loss2v2,
-            rating3v3: {rating3v3: respPlayer.rating3v3 },
             wins3v3: respPlayer.wins3v3,
             loss3v3: respPlayer.loss3v3,
-            ratingrbg: {ratingrbg: respPlayer.ratingrbg },
             winsrbg: respPlayer.winsrbg,
             lossrbg: respPlayer.lossrbg,
             lastupdate: respPlayer.lastupdate,
           };
-
-          let updateRatings = {
-            rating2v2: {rating2v2: respPlayer.rating2v2 },
-            rating3v3: {rating3v3: respPlayer.rating3v3 },
-            ratingrbg: {ratingrbg: respPlayer.ratingrbg },
-          }
 
           Player2.findOneAndUpdate(
             { player: respPlayer.player },
@@ -104,8 +95,15 @@ async function update() {
               }
             }
           );
-          Player2.findOneAndUpdate(
-            {player: respPlayer.player}, updateRatings, {new: true},
+          Player2.update(
+            { player: respPlayer.player },
+            {
+              $push: {
+                rating2v2: { rating2v2: respPlayer.rating2v2 },
+                rating3v3: { rating3v3: respPlayer.rating3v3 },
+                ratingrbg: { ratingrbg: respPlayer.ratingrbg },
+              },
+            },
             function (error, result) {
               if (error) {
                 console.log(error);
@@ -113,8 +111,7 @@ async function update() {
                 console.log("Saved ratings", respPlayer.player, "to db");
               }
             }
-          )
-
+          );
         });
       })
       .catch((e) => {
