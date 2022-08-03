@@ -1,6 +1,6 @@
 require("dotenv").config();
 const axios = require("axios").default;
-const Player = require("../db/config/models/pushData");
+const Player2 = require("../db/config/models/pushData");
 const connectDB = require("../db/config/db");
 
 // Connect to mongoDB
@@ -74,19 +74,25 @@ async function update() {
             realm: respPlayer.realm,
             class: respPlayer.class,
             ilvl: respPlayer.ilvl,
-            rating2v2: respPlayer.rating2v2,
+            rating2v2: {rating2v2: respPlayer.rating2v2 },
             wins2v2: respPlayer.wins2v2,
             loss2v2: respPlayer.loss2v2,
-            rating3v3: respPlayer.rating3v3,
+            rating3v3: {rating3v3: respPlayer.rating3v3 },
             wins3v3: respPlayer.wins3v3,
             loss3v3: respPlayer.loss3v3,
-            ratingrbg: respPlayer.ratingrbg,
+            ratingrbg: {ratingrbg: respPlayer.ratingrbg },
             winsrbg: respPlayer.winsrbg,
             lossrbg: respPlayer.lossrbg,
             lastupdate: respPlayer.lastupdate,
           };
 
-          Player.findOneAndUpdate(
+          let updateRatings = {
+            rating2v2: {rating2v2: respPlayer.rating2v2 },
+            rating3v3: {rating3v3: respPlayer.rating3v3 },
+            ratingrbg: {ratingrbg: respPlayer.ratingrbg },
+          }
+
+          Player2.findOneAndUpdate(
             { player: respPlayer.player },
             update,
             { upsert: true, new: true },
@@ -98,6 +104,17 @@ async function update() {
               }
             }
           );
+          Player2.findOneAndUpdate(
+            {player: respPlayer.player}, updateRatings, {new: true},
+            function (error, result) {
+              if (error) {
+                console.log(error);
+              } else {
+                console.log("Saved ratings", respPlayer.player, "to db");
+              }
+            }
+          )
+
         });
       })
       .catch((e) => {
