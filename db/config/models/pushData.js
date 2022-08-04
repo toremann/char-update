@@ -6,13 +6,28 @@ const playerSchema = new mongoose.Schema(
     realm: String,
     class: Number,
     ilvl: Number,
-    rating2v2: [{ rating2v2: Number }],
+    rating2v2: [
+      {
+        date: { type: Date },
+        rating: { type: Number }
+      }
+    ],
     wins2v2: Number,
     loss2v2: Number,
-    rating3v3: [{ rating3v3: Number }],
+    rating3v3: [
+    {
+      date: { type: Date },
+      rating: { type: Number}
+    }
+  ],
     wins3v3: Number,
     loss3v3: Number,
-    ratingrbg: [{ ratingrbg: Number }],
+    ratingrbg: [
+      {
+      date: { type: Date },
+      rating: { type: Number}
+    }
+  ],
     winsrbg: Number,
     lossrbg: Number,
   },

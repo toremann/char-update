@@ -99,9 +99,9 @@ async function update() {
             { player: respPlayer.player },
             {
               $push: {
-                rating2v2: { rating2v2: respPlayer.rating2v2 },
-                rating3v3: { rating3v3: respPlayer.rating3v3 },
-                ratingrbg: { ratingrbg: respPlayer.ratingrbg },
+                rating2v2: { rating: respPlayer.rating2v2, date: new Date().toLocaleString('en-GB')},
+                rating3v3: { rating: respPlayer.rating3v3, date: new Date().toLocaleString('en-GB')},
+                ratingrbg: { rating: respPlayer.ratingrbg, date: new Date().toLocaleString('en-GB')},
               },
             },
             function (error, result) {
