@@ -74,14 +74,38 @@ async function update() {
             realm: respPlayer.realm,
             class: respPlayer.class,
             ilvl: respPlayer.ilvl,
+            currentrating2v2: respPlayer.rating2v2,
             wins2v2: respPlayer.wins2v2,
             loss2v2: respPlayer.loss2v2,
+            currentrating3v3: respPlayer.rating3v3,
             wins3v3: respPlayer.wins3v3,
             loss3v3: respPlayer.loss3v3,
+            currentratingrbg: respPlayer.ratingrbg,
             winsrbg: respPlayer.winsrbg,
             lossrbg: respPlayer.lossrbg,
             lastupdate: respPlayer.lastupdate,
           };
+
+          let updateRating = {
+            rating2v2: { 
+              rating: respPlayer.rating2v2, 
+              date: new Date().toLocaleString('en-GB'),
+              wins: respPlayer.wins2v2,
+              loss: respPlayer.loss2v2
+            },
+            rating3v3: {
+              rating: respPlayer.rating3v3, 
+              date: new Date().toLocaleString('en-GB'),
+              wins: respPlayer.wins3v3,
+              loss: respPlayer.loss3v3
+            },
+            ratingrbg: { 
+              rating: respPlayer.ratingrbg, 
+              date: new Date().toLocaleString('en-GB'),
+              wins: respPlayer.winsrbg,
+              loss: respPlayer.lossrbg
+            },
+          }
 
           Player2.findOneAndUpdate(
             { player: respPlayer.player },
@@ -98,11 +122,7 @@ async function update() {
           Player2.update(
             { player: respPlayer.player },
             {
-              $push: {
-                rating2v2: { rating: respPlayer.rating2v2, date: new Date().toLocaleString('en-GB')},
-                rating3v3: { rating: respPlayer.rating3v3, date: new Date().toLocaleString('en-GB')},
-                ratingrbg: { rating: respPlayer.ratingrbg, date: new Date().toLocaleString('en-GB')},
-              },
+              $push: updateRating,
             },
             function (error, result) {
               if (error) {
