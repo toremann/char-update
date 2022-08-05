@@ -49,6 +49,7 @@ async function update() {
             realm: promise.data.realm,
             class: promise.data.class,
             ilvl: promise.data.pvpGear,
+            checked: promise.data.nombreRecherche,
             rating2v2: promise.data.rateatm2v2,
             wins2v2: promise.data.ratioWin2v2,
             loss2v2: promise.data.ratioLose2v2,
@@ -59,13 +60,16 @@ async function update() {
             winsrbg: promise.data.ratioWinRbg,
             lossrbg: promise.data.ratioLoseRbg,
             lastupdate: promise.data.lastModified,
+            
           };
+          
         })
         .catch(function (error) {
           return console.log(error);
         });
+        
     }
-
+    
     putAllData(arrayOfPromisess)
       .then((resp) => {
         resp.forEach((respPlayer) => {
@@ -74,6 +78,7 @@ async function update() {
             realm: respPlayer.realm,
             class: respPlayer.class,
             ilvl: respPlayer.ilvl,
+            checked: respPlayer.checked,
             currentrating2v2: respPlayer.rating2v2,
             wins2v2: respPlayer.wins2v2,
             loss2v2: respPlayer.loss2v2,
@@ -85,27 +90,26 @@ async function update() {
             lossrbg: respPlayer.lossrbg,
             lastupdate: respPlayer.lastupdate,
           };
-
           let updateRating = {
-            rating2v2: { 
-              rating: respPlayer.rating2v2, 
-              date: new Date().toLocaleString('en-GB'),
+            rating2v2: {
+              rating: respPlayer.rating2v2,
+              date: new Date().toLocaleString("en-GB"),
               wins: respPlayer.wins2v2,
-              loss: respPlayer.loss2v2
+              loss: respPlayer.loss2v2,
             },
             rating3v3: {
-              rating: respPlayer.rating3v3, 
-              date: new Date().toLocaleString('en-GB'),
+              rating: respPlayer.rating3v3,
+              date: new Date().toLocaleString("en-GB"),
               wins: respPlayer.wins3v3,
-              loss: respPlayer.loss3v3
+              loss: respPlayer.loss3v3,
             },
-            ratingrbg: { 
-              rating: respPlayer.ratingrbg, 
-              date: new Date().toLocaleString('en-GB'),
+            ratingrbg: {
+              rating: respPlayer.ratingrbg,
+              date: new Date().toLocaleString("en-GB"),
               wins: respPlayer.winsrbg,
-              loss: respPlayer.lossrbg
+              loss: respPlayer.lossrbg,
             },
-          }
+          };
 
           Player2.findOneAndUpdate(
             { player: respPlayer.player },
@@ -115,7 +119,7 @@ async function update() {
               if (error) {
                 console.log(error);
               } else {
-                console.log("Saved", respPlayer.player, "to db");
+                console.log("Saved", respPlayer.player, "to db", respPlayer.checked)
               }
             }
           );
